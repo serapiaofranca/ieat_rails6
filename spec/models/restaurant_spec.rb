@@ -4,14 +4,17 @@ RSpec.describe Restaurant do
     it { should have_many(:products) }
 
     context "testing total of products" do
-        it 'returns total of products of a specific restaurant' do
-            restaurant = FactoryBot.create(:restaurant)
-            prod1 = FactoryBot.create(:product, restaurant: restaurant)
-            prod2 = FactoryBot.create(:product, restaurant: restaurant)
-            prod3 = FactoryBot.create(:product, restaurant: restaurant)
-            prod4 = FactoryBot.create(:product, restaurant: restaurant)
+        let(:restaurant){FactoryBot.create(:restaurant)}
+        let(:total){rand(5)}
 
-            expect(restaurant.total_of_products).to eq 4 
+        before do
+           (1..total).each do |item|
+            FactoryBot.create(:product, restaurant: restaurant)
+           end                       
+        end
+
+        it 'returns total of products of a specific restaurant' do
+            expect(restaurant.total_of_products).to eq total 
         end  
     end      
 end
