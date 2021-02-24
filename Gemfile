@@ -14,7 +14,11 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
 
 group :development, :test do
+    gem 'shoulda-matchers'
+    gem 'rspec-rails'
     gem 'pry'
+    gem 'faker'
+    gem 'factory_bot_rails'    
 end
 
 group :development do
