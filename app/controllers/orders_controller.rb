@@ -1,12 +1,13 @@
 class OrdersController < ApplicationController
   def create
-    binding.pry  #--> para resolver erros, debug
+    #binding.pry  #--> para resolver erros, debug
     @order = Order.new(order_params)
     @order.user_id = current_user.id
     @order.status = :pending
     
     if @order.save
       flash[:notice] = 'Pedido Criado com sucesso'
+      RestaurantNotifierJob.perform_later(current_user.id)
     else
       flash[:notice] = 'Erro: falha ao criar o pedido'
     end
